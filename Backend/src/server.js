@@ -1,15 +1,12 @@
-const express = require('express')
-const app = express()
-const port = 3000
+import connectDB from "./db/DB.js";
+import dotenv from "dotenv"
 
-app.get('/', (req, res) => {
-    res.send('Hello World! i am alive')
+
+dotenv.config({
+    path:'./env'
 })
+connectDB()
 
 
 
 
-
-app.listen(port, () => {
-    console.log(`Example app listening this url http://localhost:${port}`)
-});
