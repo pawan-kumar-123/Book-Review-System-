@@ -1,0 +1,139 @@
+* {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    border: border-box;
+}
+
+.navbar {
+    height: 70px;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.logo {
+    font-size: 50px;
+    width: 75%;
+}
+
+.opit {
+    height: 40px;
+    width: 500px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 5px;
+    gap: 9px;
+}
+
+.opit a {
+    font-size: 18px;
+    color: white;
+    text-decoration-line: none;
+}
+
+
+.login_box {
+    height: 500px;
+    width: 450px;
+    position: relative;
+    top: 116px;
+    left: 520px;
+    background-color: rgb(248, 248, 248);
+    border: 4px solid rgb(0, 0, 0);
+    border-radius: 9px;
+}
+
+
+
+.input_username {
+    height: 30px;
+    width: 100px;
+    position: relative;
+    top: 90px;
+    left: 90px;
+    font-size: 20px;
+}
+
+.input_username input {
+    height: 30px;
+    width: 250px;
+    border: none;
+}
+
+
+
+.input_Email {
+    height: 30px;
+    width: 100px;
+    position: relative;
+    top: 150px;
+    left: 90px;
+    font-size: 20px;
+}
+
+.input_Email input {
+    height: 30px;
+    width: 250px;
+    border: none;
+}
+
+
+.input_create_password {
+    height: 30px;
+    width: 200px;
+    position: relative;
+    top: 196px;
+    left: 90px;
+    font-size: 20px;
+}
+
+.input_create_password input {
+    height: 30px;
+    width: 250px;
+    border: none;
+}
+
+.input_re-enter_password {
+    height: 30px;
+    width: 200px;
+    position: relative;
+    top: 250px;
+    left: 90px;
+    font-size: 20px;
+}
+
+.input_re-enter_password input {
+    height: 30px;
+    width: 250px;
+    border: none;
+}
+
+
+
+
+.register_button {
+    position: relative;
+    top: 299px;
+    left: 300px;
+    height: 30px;
+    width: 92px;
+    padding: 2px 9px 2px 2px;
+    background-color: rgb(19, 131, 196);
+    border-radius: 3px;
+    font-size: 25px;
+}
+
+.register_button a {
+    text-decoration-line: none;
+    color: white;
+}
+
+.register_button:hover {
+    background-color: rgb(0, 162, 255);
+}
+
+
+

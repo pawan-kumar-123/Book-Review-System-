@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    border: border-box;
+}
+
+.navbar {
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    background-color: black;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.logo {
+    font-size: 50px;
+    width: 75%;
+}
+
+.opit {
+    height: 40px;
+    width: 500px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 5px;
+    gap: 9px;
+}
+
+.opit a {
+    font-size: 18px;
+    color: white;
+    text-decoration-line: none;
+}
+
+.book_img {
+    height: 400px;
+    width: 300;
+    background-color: black;
+}
+
+
+.book_left_img {
+    background-color: rgb(50, 30, 30);
+    position: relative;
+    top: 150px;
+    left: 50px;
+    height: 400px;
+    width: 400px;
+    background-image: url(/images/715qi-cIbML._SY466_.jpg);
+    background-size: cover;
+}
+

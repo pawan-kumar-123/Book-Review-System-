@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    border: border-box;
+}
+
+.navbar {
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    background-color: black;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.logo {
+    font-size: 50px;
+    width: 75%;
+}
+
+.opit {
+    height: 40px;
+    width: 500px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 5px;
+    gap: 9px;
+}
+
+.opit a {
+    font-size: 18px;
+    color: white;
+    text-decoration-line: none;
+}
+
+
+.hero-sec {
+    height: 500px;
+    width: 100%;
+    background-color: rgb(84, 77, 77);
+    background-image: url(/images/hero.jpeg);
+    background-size: contain;
+}
+
+
+
+.content_1 {
+    height: 300px;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.b1 {
+    height: 250px;
+    width: 240px;
+    margin-top: 20px;
+    background-color: rgb(246, 246, 246);
+    border-radius: 8px;
+    background-image: url(/images/dHhoARp9L._AC_UL232_SR232\,232_.jpg);
+    background-size: cover;
+
+}
+
+.b2 {
+    height: 250px;
+    width: 240px;
+    margin-top: 20px;
+    background-color: rgb(199, 181, 218);
+    border-radius: 8px;
+    background-image: url(/images/81VeeaIPzmL._AC_UL232_SR232\,232_.jpg);
+    background-size: cover;
+}
+
+.b3 {
+    height: 250px;
+    width: 240px;
+    margin-top: 20px;
+    background-color: rgb(199, 181, 218);
+    border-radius: 8px;
+    background-image: url(/images/715JrBtrDoL._AC_UL165_SR165\,165_.jpg);
+    background-size: cover;
+}
+
+.b4 {
+    height: 250px;
+    width: 240px;
+    margin-top: 20px;
+    background-color: rgb(199, 181, 218);
+    border-radius: 8px;
+    background-image: url(/images/81NHgtzn0JL._AC_UL232_SR232\,232_.jpg);
+    background-size: cover;
+}
+
+.content_2 {
+    height: 300px;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.b5 {
+    height: 250px;
+    width: 240px;
+    margin-top: 20px;
+    background-color: rgb(199, 181, 218);
+    border-radius: 8px;
+    background-image: url(/images/61B0Z0Buu6L._AC_UL165_SR165\,165_.jpg);
+    background-size: cover;
+}
+
+.b6 {
+    height: 250px;
+    width: 240px;
+    margin-top: 20px;
+    background-color: rgb(199, 181, 218);
+    border-radius: 8px;
+    background-image: url(/images/61RlLYVbDSL._AC_UL165_SR165\,165_.jpg);
+    background-size: cover;
+}
+
+.b7 {
+    height: 250px;
+    width: 240px;
+    margin-top: 20px;
+    background-color: rgb(199, 181, 218);
+    border-radius: 8px;
+    background-image: url(/images/71pEaSYkhsL._AC_UL165_SR165\,165_.jpg);
+    background-size: cover;
+}
+
+.b8 {
+    height: 250px;
+    width: 240px;
+    margin-top: 20px;
+    background-color: rgb(199, 181, 218);
+    border-radius: 8px;
+    background-image: url(/images/61Ktyy7KymL._AC_UL165_SR165\,165_.jpg);
+    background-size: cover;
+}
+
+.content_3 {
+    height: 300px;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.b9 {
+    height: 250px;
+    width: 240px;
+    margin-top: 20px;
+    background-color: rgb(199, 181, 218);
+    border-radius: 8px;
+    background-image: url(/images/6148AsKyImL._AC_UL165_SR165\,165_.jpg);
+    background-size: cover;
+}
+
+.b10 {
+    height: 250px;
+    width: 240px;
+    margin-top: 20px;
+    background-color: rgb(199, 181, 218);
+    border-radius: 8px;
+    background-image: url(/images/71XpkRq0ncL._AC_UL165_SR165\,165_.jpg);
+    background-size: cover;
+}
+
+.b11 {
+    height: 250px;
+    width: 240px;
+    margin-top: 20px;
+    background-color: rgb(199, 181, 218);
+    border-radius: 8px;
+    background-image: url(/images/81T05w0B3lL._AC_UL165_SR165\,165_.jpg);
+    background-size: cover;
+}
+
+.b12 {
+    height: 250px;
+    width: 240px;
+    margin-top: 20px;
+    background-color: rgb(199, 181, 218);
+    border-radius: 8px;
+    background-image: url(/images/61cvUtcU8TL._AC_UL165_SR165\,165_.jpg);
+    background-size: cover;
+}
