@@ -6,7 +6,7 @@ import { fileURLToPath } from "url"
 import bookRoutes from "./routes/route.js"
 
 const app = express()
-app.use(cors())
+app.use(cors({ limit: "16kb" }))
 app.use(express.json({ limit: "16kb" }))
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 app.use(express.static("public"))
