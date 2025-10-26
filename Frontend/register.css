@@ -120,20 +120,22 @@
     left: 300px;
     height: 30px;
     width: 92px;
-    padding: 2px 9px 2px 2px;
-    background-color: rgb(19, 131, 196);
-    border-radius: 3px;
-    font-size: 25px;
+    /* padding: 2px 9px 2px 2px; */
+    /* background-color: rgb(19, 131, 196); */
+    /* font-size: 25px; */
 }
 
-.register_button a {
-    text-decoration-line: none;
-    color: white;
+.register_button,
+button {
+    height: 30px;
+    width: 92px;
+    color: rgb(0, 0, 0);
+    border-radius: 4px;
+    border: none;
+    background-color: seashell;
 }
 
-.register_button:hover {
-    background-color: rgb(0, 162, 255);
+.register_button,
+button:hover {
+    background-color: rgb(224, 227, 228);
 }
-
-
-

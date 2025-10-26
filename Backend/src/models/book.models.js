@@ -29,4 +29,4 @@ const bookSchema = new mongoose.Schema({
         ref: "User"
     }
 }, { timestamps: true })
-export const Book = mongoose.model('Book', categorySchema)
+export const Book = mongoose.model('Book', bookSchema)
