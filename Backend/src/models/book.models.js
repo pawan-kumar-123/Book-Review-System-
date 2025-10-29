@@ -26,7 +26,7 @@ const bookSchema = new mongoose.Schema({
     },
     addBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "Admin"
     }
 }, { timestamps: true })
 export const Book = mongoose.model('Book', bookSchema)

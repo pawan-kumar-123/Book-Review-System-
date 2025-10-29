@@ -5,9 +5,9 @@ import cookieParser from "cookie-parser"
 import { fileURLToPath } from "url"
 
 const app = express()
-app.use(cors({ limit: "16kb" }))
-app.use(express.json({ limit: "16kb" }))
-app.use(express.urlencoded({ extended: true, limit: "16kb" }))
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded())
 app.use(express.static("public"))
 app.use(cookieParser())
 
@@ -19,11 +19,13 @@ app.use(express.static(path.join(_dirname, "../../Frontend")))
 
 
 
-// routes import  
+// routes import
 import userRouter from "./routes/route.js"
+import adminRouter from "./routes/admin.routes.js"
 
 //routes declaration
 app.use("/", userRouter)
+app.use("/admin", adminRouter)
 
 app.get(/.*/, (req, res) => {
     res.sendFile(path.join(_dirname, "../../Frontend", "index.html"))

@@ -9,16 +9,20 @@ const registerUser = asyncHandler(async (req, res) => {
         const { userName, email, password } = req.body;
         console.log("📝 Received data:", { userName, email, password });
 
-        // Create new user
+        // Create new user using User.create()
         const user = await User.create({
             userName: userName.toLowerCase(),
             email: email.toLowerCase(),
             password: password
         })
-        console.log("✅ User created:", user);
 
+        // Explicitly save to database
+        // await user.save()
+        // console.log(" User saved to DB:", user);
+
+        // Fetch from database to confirm
         const createdUser = await User.findById(user._id).select("-password")
-        console.log("✅ User found:", createdUser);
+        console.log("✅ User found in DB:", createdUser);
 
         if (!createdUser) {
             throw new ApiError(500, "something went wrong while registering the user!!!")

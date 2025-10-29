@@ -1,7 +1,4 @@
-// Validation is the user exists
-
 import { User } from "../models/user.models.js"
-// import { ApiError } from "../utils/ApiError.js"
 
 const checkUserNameExists = async (req, res, next) => {
     const { userName } = req.body
