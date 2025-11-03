@@ -1,11 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="adminPanel.css">
 </head>
+
 <body>
-    
+
+    <!-- <div class="navbar">
+        <h2>Admin Dashboard</h2>
+        <button>Log out </button>
+    </div>
+    <div class="sidebar">
+        <ul class="list">
+            <h2>Dashboard</h2>
+            <a href="#">Mangage Books</a>
+            <a href="#">Mangage Users</a>
+        </ul>
+    </div>
+    <div class="center_box">
+        <div class="total_users">
+            <p>Total users</p>
+        </div>
+        <div class="total_books">
+            <p>Total books</p>
+        </div>
+        <div class="add_books">
+            <p>add books</p>
+        </div>
+    </div>
+ -->
+
+
+
+
+    <div class="dashboard-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Book Review</h2>
+            <nav>
+                <ul>
+                    <li class="active">Dashboard</li>
+                    <li>Manage Books</li>
+                    <li>Manage Users</li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Admin Dashboard</h1>
+                <button class="logout-btn">Logout</button>
+            </header>
+
+            <!-- Stats Boxes -->
+            <section class="stats">
+                <div class="stat-box">
+                    <h3>Total Users</h3>
+                    <p>10</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Total Books</h3>
+                    <p>101</p>
+                </div>
+            </section>
+
+            <!-- Book Management Table -->
+            <section class="add-books">
+                <h2>Add Books</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Description</th>
+                            <th>Genre</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Atomic Habits</td>
+                            <td>James Clear</td>
+                            <td>Improve your habits daily</td>
+                            <td>Self-help</td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script src="adminPanel.js"></script>
 </body>
+
 </html>
