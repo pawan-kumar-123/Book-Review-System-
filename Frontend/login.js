@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   const adminRedirect = "adminPanel.html"
-  const userRedirect = "adminPanel.html"
+  const userRedirect = "index.html"
 
   const form = document.getElementById("loginForm")
   const userNameInput = document.getElementById("userName")
@@ -20,22 +19,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const res = await fetch("/admin/login", {
+      // Try admin login first
+      const adminRes = await fetch("/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userName, password })
       });
 
-      const data = await res.json().catch(() => ({}));
-      if (res.ok && data?.message === "Admin logged in successfully") {
+      const adminData = await adminRes.json().catch(() => ({}));
+
+      if (adminRes.ok && adminData?.message === "Admin logged in successfully") {
         window.location.href = adminRedirect;
         return;
       }
-      window.location.href = userRedirect
+
+      // Try normal user login (correct route)
+      const userRes = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userName, password })
+      });
+
+      const userData = await userRes.json().catch(() => ({}));
+
+      if (userRes.ok && userData?.data?.user) {
+        localStorage.setItem("currentUser", JSON.stringify(userData.data.user));
+        window.location.href = userRedirect;
+      } else {
+        alert(userData.message || "Login failed. Please check your credentials.");
+      }
 
     } catch (error) {
       console.error("Login error:", error)
-      alert("Error connecting  to server .Please try again.")
+      alert("Unable to reach server. Please try again.");
     }
   });
 });

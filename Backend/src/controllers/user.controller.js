@@ -38,6 +38,37 @@ const registerUser = asyncHandler(async (req, res) => {
 
 })
 
-export { registerUser }
+// In Backend/src/controllers/user.controller.js
+// Add loginUser function after registerUser:
+
+// ... existing code ...
+
+const loginUser = asyncHandler(async (req, res) => {
+    const { userName, password } = req.body;
+
+    if (!userName || !password) {
+        throw new ApiError(400, "Username and password are required");
+    }
+
+    const user = await User.findOne({ userName: userName.toLowerCase() });
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    const isPasswordValid = await user.isPasswordCorrect(password);
+    if (!isPasswordValid) {
+        throw new ApiError(401, "Invalid password");
+    }
+
+    const userData = await User.findById(user._id).select("-password");
+
+    return res.status(200).json(
+        new ApiResponse(200, { user: userData }, "User logged in successfully")
+    );
+});
+
+export { registerUser, loginUser }
+
+
 
 

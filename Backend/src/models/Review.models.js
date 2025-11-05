@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2"
+// import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2"
 
 const reviewSchema = new mongoose.Schema({
 
@@ -26,6 +26,6 @@ const reviewSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-videoSchema.plugin(mongooseAggregatePaginate)
+// videoSchema.plugin(mongooseAggregatePaginate)
 
 export const Review = mongoose.model("Review", reviewSchema)
