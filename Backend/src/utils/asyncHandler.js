@@ -7,18 +7,24 @@
 
 // export { asyncHandler } 
 
+// In Backend/src/utils/asyncHandler.js
+// Replace the entire file with:
 
 const asyncHandler = (fn) => async (req, res, next) => {
     try {
         await fn(req, res, next)
     } catch (err) {
-        res.status(err.code || 500).json({
+        console.error("Error in asyncHandler:", err);
+        const statusCode = err.statusCode || err.code || 500;
+        const message = err.message || "Something went wrong";
+        
+        res.status(statusCode).json({
             success: false,
-            massage: err.code
+            message: message,
+            statusCode: statusCode
         })
     }
 }
 
-export { asyncHandler } 
-
+export { asyncHandler }
 

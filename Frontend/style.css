@@ -50,7 +50,7 @@
 .content_1 {
     height: 300px;
     width: 100%;
-    background-color: rgb(0, 0, 0);
+    background-color: #0f0f0f;
     display: flex;
     justify-content: space-evenly;
 }
@@ -99,7 +99,7 @@
 .content_2 {
     height: 300px;
     width: 100%;
-    background-color: rgb(0, 0, 0);
+    background-color: #0f0f0f;
     display: flex;
     justify-content: space-evenly;
 }
@@ -147,7 +147,7 @@
 .content_3 {
     height: 300px;
     width: 100%;
-    background-color: rgb(0, 0, 0);
+    background-color: #0f0f0f;
     display: flex;
     justify-content: space-evenly;
 }

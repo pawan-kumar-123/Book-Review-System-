@@ -26,24 +26,27 @@
     </div>
 
     <div class="login_box">
-        <div class="input_username">
-            <p>Username</p>
-            <input type="text" placeholder="Username">
-        </div>
-        <div class="input_password">
-            <p>Password</p>
-            <input type="text" placeholder="Password">
-        </div>
+        <form id="loginForm">
+            <div class="input_username">
+                <p>Username</p>
+                <input type="text" id="userName" placeholder="Username" required>
+            </div>
+            <div class="input_password">
+                <p>Password</p>
+                <input type="text" id="password" placeholder="Password" required>
+            </div>
 
-        <div class="login_button">
-            <a href="#">Log In</a>
-        </div>
+            <div class="login_button">
+                <button type="submit">Login</button>
+            </div>
 
-        <div class="register">
-            <a href="register.html">Register</a>
-        </div>
+            <div class="register">
+                <p>Don't have an account <a href="register.html">Register</a></p>
+            </div>
+        </form>
     </div>
 
+    <script src="login.js"></script>
 </body>
 
 </html>

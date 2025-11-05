@@ -18,6 +18,10 @@ const bookSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    image: {
+        type: String,
+        default: ""
+    },
     averageRating: {
         type: Number,
         default: 0,

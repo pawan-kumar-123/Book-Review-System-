@@ -4,6 +4,10 @@ import { User } from "../models/user.models.js"
 import { Book } from "../models/book.models.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { ApiError } from "../utils/ApiError.js"
+import path from "path"
+import { fileURLToPath } from "url"
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 
 const loginAdmin = asyncHandler(async (req, res) => {
@@ -62,22 +66,39 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 
 const createBook = asyncHandler(async (req, res) => {
-    const { title, author, description, genre } = req.body;
-    console.log("creating book:", { title, author });
-    if (!title || !description || !author) {
-        throw new ApiError(400, "Title,author and description are required")
+    try {
+        const { title, author, description, genre } = req.body;
+        console.log("creating book:", { title, author, description, genre });
+
+        if (!title || !description || !author) {
+            throw new ApiError(400, "Title, author and description are required")
+        }
+
+        // Handle image upload
+        let imageUrl = "";
+        if (req.file) {
+            // Image is saved in public/temp, create URL path
+            imageUrl = `/temp/${req.file.filename}`
+            console.log("Image uploaded:", imageUrl);
+        }
+
+        const book = await Book.create({
+            title: title.trim(),
+            author: author.trim(),
+            description: description.trim(),
+            genre: genre ? genre.trim() : undefined,
+            image: imageUrl
+        })
+
+        console.log("book created:", book);
+
+        return res.status(201).json(
+            new ApiResponse(201, book, "Book created successfully")
+        )
+    } catch (error) {
+        console.error("Error creating book:", error);
+        throw error;
     }
-    const book = await Book.create({
-        title,
-        author,
-        description,
-        genre,
-        addBy: req.admin.id
-    })
-    console.log("book created:", book);
-    return res.status(201).json(
-        new ApiResponse(201, book, "Book created successfully")
-    )
 })
 
 

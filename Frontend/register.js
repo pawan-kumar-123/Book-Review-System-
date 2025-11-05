@@ -13,7 +13,7 @@ document.getElementById("register-form").addEventListener("submit", async (e) =>
     if (password.length < 8) {
         alert("Password must be at least 8 characters")
         return;
-    }
+    }   
 
     try {
         const response = await fetch("/register.html",
