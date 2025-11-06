@@ -459,3 +459,26 @@
 }
 
 
+
+.view-all-books {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px;
+}
+
+.view-all-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.view-all-btn:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}

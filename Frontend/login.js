@@ -42,9 +42,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const userData = await userRes.json().catch(() => ({}));
 
+
       if (userRes.ok && userData?.data?.user) {
         localStorage.setItem("currentUser", JSON.stringify(userData.data.user));
-        window.location.href = userRedirect;
+        alert("Login successful!");
+        window.location.href = "index.html";
       } else {
         alert(userData.message || "Login failed. Please check your credentials.");
       }

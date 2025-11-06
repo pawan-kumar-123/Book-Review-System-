@@ -8,16 +8,17 @@ const reviewSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    books: {
+    book: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Book",
         required: true
     },
     rating: {
         type: Number,
-        required: true,
+        required: false,
         min: 1,
-        max: 5
+        max: 5,
+        default: null
     },
     comment: {
         type: String,

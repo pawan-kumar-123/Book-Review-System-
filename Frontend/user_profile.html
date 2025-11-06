@@ -1,0 +1,70 @@
+<!-- Create new file: Frontend/profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Book Review</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="user_profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <a href="index.html"><i class="fa-solid fa-book-open-reader"></i></a>
+        </div>
+        <div class="opit">
+            <a href="index.html">Home</a>
+            <a href="#" id="allBooksLink">All Book</a>
+            <a href="#">About</a>
+            <a href="user_profile.html" id="profileLink">User Profile</a>
+            <a href="#" id="logoutLink">Logout</a>
+        </div>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <i class="fa-solid fa-user-circle"></i>
+            </div>
+            <h1 id="userName">Loading...</h1>
+            <p id="userEmail">Loading...</p>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-section">
+                <h2>Account Information</h2>
+                <div class="info-card">
+                    <div class="info-item">
+                        <label>Username:</label>
+                        <span id="displayUserName">-</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Email:</label>
+                        <span id="displayUserEmail">-</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Member Since:</label>
+                        <span id="memberSince">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h2>My Comments</h2>
+                <div id="userComments" class="comments-list">
+                    <!-- Comments will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="user_profile.js"></script>
+</body>
+
+</html>

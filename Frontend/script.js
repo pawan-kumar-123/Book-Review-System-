@@ -35,14 +35,66 @@ async function loadBooks() {
     }
 }
 
+
+
+
+function updateNavbar() {
+    const storedUser = localStorage.getItem("currentUser");
+    const registerLink = document.getElementById("registerLink");
+    const loginLink = document.getElementById("loginLink");
+    const profileLink = document.getElementById("profileLink");
+    const logoutLink = document.getElementById("logoutLink");
+
+    if (storedUser) {
+        // User is logged in - show profile and logout
+        if (registerLink) registerLink.style.display = "none";
+        if (loginLink) loginLink.style.display = "none";
+        if (profileLink) profileLink.style.display = "block";
+        if (logoutLink) {
+            logoutLink.style.display = "block";
+            logoutLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (confirm("Are you sure you want to logout?")) {
+                    localStorage.removeItem("currentUser");
+                    currentUser = null;
+                    window.location.reload();
+                }
+            });
+        }
+    } else {
+        // User is not logged in - show register and login
+        if (registerLink) registerLink.style.display = "block";
+        if (loginLink) loginLink.style.display = "block";
+        if (profileLink) profileLink.style.display = "none";
+        if (logoutLink) logoutLink.style.display = "none";
+    }
+}
+
+// Update the DOMContentLoaded section:
+document.addEventListener("DOMContentLoaded", () => {
+    loadBooks();
+    setupEventListeners();
+    updateNavbar(); // Add this line
+
+    // Check if user is logged in for comments
+    const storedUser = localStorage.getItem("currentUser");
+    currentUser = storedUser ? JSON.parse(storedUser) : null;
+});
+
+
+
+
 // Render books in grid
-function renderBooks() {
+function renderBooks(limitBooks = true) {
     const booksGrid = document.getElementById("booksGrid");
     if (!booksGrid) return;
 
     booksGrid.innerHTML = "";
 
-    if (books.length === 0) {
+    // Limit books to 8 on home page
+    const booksToRender = limitBooks ? books.slice(0, 8) : books;
+
+    if (booksToRender.length === 0) {
         booksGrid.innerHTML = `
             <div class="no-books">
                 <p>No books available at the moment.</p>
@@ -51,7 +103,7 @@ function renderBooks() {
         return;
     }
 
-    books.forEach((book) => {
+    booksToRender.forEach((book) => {
         const bookCard = document.createElement("div");
         bookCard.className = "book-card";
         bookCard.setAttribute("data-book-id", book._id);
@@ -77,6 +129,16 @@ function renderBooks() {
 
         booksGrid.appendChild(bookCard);
     });
+
+    // Show "View All Books" button if there are more than 8 books
+    if (limitBooks && books.length > 8) {
+        const viewAllButton = document.createElement("div");
+        viewAllButton.className = "view-all-books";
+        viewAllButton.innerHTML = `
+            <a href="all_books.html" class="view-all-btn">View All Books (${books.length})</a>
+        `;
+        booksGrid.appendChild(viewAllButton);
+    }
 }
 
 // Show book detail modal
