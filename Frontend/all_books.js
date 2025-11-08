@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadBooks();
     setupEventListeners();
     updateNavbar();
-
+  
     // Check if user is logged in for comments
     const storedUser = localStorage.getItem("currentUser");
     currentUser = storedUser ? JSON.parse(storedUser) : null;
