@@ -7,33 +7,49 @@ body {
 
 /* Navbar */
 .navbar {
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    background-color: black;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-    background: #111;
-    padding: 15px 60px;
-    height: 50px;
+    z-index: 1000;
 }
 
-.navbar .logo a {
-    text-decoration: none;
+.logo {
+    font-size: 50px;
+    width: 75%;
+}
+
+.logo a {
     color: white;
-    font-size: 1.5em;
-    font-weight: 600;
+    text-decoration: none;
 }
 
-.navbar .menu a {
-    text-decoration: none;
-    color: #f0f0f0;
-    margin-left: 25px;
-    font-weight: 500;
+.opit {
+    height: 40px;
+    width: 500px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 5px;
+    gap: 9px;
+}
+
+.opit a {
+    font-size: 18px;
+    color: white;
+    text-decoration-line: none;
     transition: color 0.3s;
 }
 
-.navbar .menu a:hover,
-.navbar .menu .active {
+.opit a:hover,
+.opit a.active {
     color: #4CAF50;
 }
+
 
 /* Hero Section */
 .about-hero {

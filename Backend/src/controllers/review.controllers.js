@@ -1,10 +1,9 @@
-
-
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Review } from "../models/Review.models.js";
 import { Book } from "../models/book.models.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
+// import updateAverageRating  from "../models/book.models.js";
 
 // Create a review/comment
 const createReview = asyncHandler(async (req, res) => {
@@ -32,6 +31,9 @@ const createReview = asyncHandler(async (req, res) => {
         comment: comment.trim(),
         rating: rating || null
     });
+
+    // Update book's average rating after review creation
+    await book.updateAverageRating();
 
     // Populate user info
     const populatedReview = await Review.findById(review._id)
@@ -81,6 +83,12 @@ const updateReview = asyncHandler(async (req, res) => {
 
     await review.save();
 
+    // Update book's average rating after review update
+    const book = await Book.findById(review.book);
+    if (book) {
+        await book.updateAverageRating();
+    }
+
     const updatedReview = await Review.findById(reviewId)
         .populate("reviewByUser", "userName email");
 
@@ -104,7 +112,16 @@ const deleteReview = asyncHandler(async (req, res) => {
         throw new ApiError(403, "You can only delete your own reviews");
     }
 
+    // Store book ID before deletion for updating average rating
+    const bookId = review.book;
+
     await Review.findByIdAndDelete(reviewId);
+
+    // Update book's average rating after review deletion
+    const book = await Book.findById(bookId);
+    if (book) {
+        await book.updateAverageRating();
+    }
 
     return res.status(200).json(
         new ApiResponse(200, null, "Review deleted successfully")

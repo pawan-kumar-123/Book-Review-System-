@@ -9,7 +9,6 @@ const registerUser = asyncHandler(async (req, res) => {
         const { userName, email, password } = req.body;
         console.log("📝 Received data:", { userName, email, password });
 
-        // Create new user using User.create()
         const user = await User.create({
             userName: userName.toLowerCase(),
             email: email.toLowerCase(),
@@ -38,10 +37,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
 })
 
-// In Backend/src/controllers/user.controller.js
-// Add loginUser function after registerUser:
-
-// ... existing code ...
 
 const loginUser = asyncHandler(async (req, res) => {
     const { userName, password } = req.body;

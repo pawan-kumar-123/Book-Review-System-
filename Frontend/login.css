@@ -1,110 +1,125 @@
-* {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    border: border-box;
-}
+ * {
+     margin: 0;
+     font-family: Arial, Helvetica, sans-serif;
+     border: border-box;
+ }
 
-.navbar {
-    height: 70px;
-    width: 100%;
-    background-color: black;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
+ .navbar {
+     height: 70px;
+     width: 100%;
+     position: fixed;
+     top: 0px;
+     background-color: black;
+     display: flex;
+     justify-content: space-evenly;
+     align-items: center;
+     z-index: 1000;
+ }
 
-.logo {
-    font-size: 50px;
-    width: 75%;
-}
+ .logo {
+     font-size: 50px;
+     width: 75%;
+ }
 
-.opit {
-    height: 40px;
-    width: 500px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 5px;
-    gap: 9px;
-}
+ .logo a {
+     color: white;
+     text-decoration: none;
+ }
 
-.opit a {
-    font-size: 18px;
-    color: white;
-    text-decoration-line: none;
-}
+ .opit {
+     height: 40px;
+     width: 500px;
+     display: flex;
+     justify-content: space-evenly;
+     align-items: center;
+     padding: 5px;
+     gap: 9px;
+ }
 
+ .opit a {
+     font-size: 18px;
+     color: white;
+     text-decoration-line: none;
+     transition: color 0.3s;
+ }
 
-.login_box {
-    height: 400px;
-    width: 450px;
-    position: relative;
-    top: 90px;
-    left: 520px;
-    background-color: rgb(248, 248, 248);
-    border: 4px solid rgb(0, 0, 0);
-    border-radius: 9px;
-}
-
-
-
-.input_username {
-    height: 30px;
-    width: 100px;
-    position: relative;
-    top: 105px;
-    left: 90px;
-    font-size: 20px;
-}
-
-.input_username input {
-    height: 30px;
-    width: 250px;
-    border: none;
-}
-
-.input_password {
-    height: 30px;
-    width: 100px;
-    position: relative;
-    top: 140px;
-    left: 90px;
-    font-size: 20px;
-}
-
-.input_password input {
-    height: 30px;
-    width: 250px;
-    border: none;
-}
-
-.login_button {
-    position: relative;
-    top: 210px;
-    left: 300px;
-    height: 20px;
-    width: 70px;
-
-}
-
-.login_button button {
-    text-decoration-line: none;
-    width: 100%;
-    color: black;
-    font-size: 20px;
-
-}
+ .opit a:hover,
+ .opit a.active {
+     color: #4CAF50;
+ }
 
 
 
-.register {
-    position: relative;
-    top: 190px;
-    left: 20px;
-    height: 20px;
-    width: 160px;
-}
+ .login_box {
+     height: 400px;
+     width: 450px;
+     position: relative;
+     top: 90px;
+     left: 520px;
+     background-color: rgb(248, 248, 248);
+     border: 4px solid rgb(0, 0, 0);
+     border-radius: 9px;
+ }
 
-.register a {
-    text-decoration-line: none;
-}
+
+
+ .input_username {
+     height: 30px;
+     width: 100px;
+     position: relative;
+     top: 105px;
+     left: 90px;
+     font-size: 20px;
+ }
+
+ .input_username input {
+     height: 30px;
+     width: 250px;
+     border: none;
+ }
+
+ .input_password {
+     height: 30px;
+     width: 100px;
+     position: relative;
+     top: 140px;
+     left: 90px;
+     font-size: 20px;
+ }
+
+ .input_password input {
+     height: 30px;
+     width: 250px;
+     border: none;
+ }
+
+ .login_button {
+     position: relative;
+     top: 210px;
+     left: 300px;
+     height: 20px;
+     width: 70px;
+
+ }
+
+ .login_button button {
+     text-decoration-line: none;
+     width: 100%;
+     color: black;
+     font-size: 20px;
+
+ }
+
+
+
+ .register {
+     position: relative;
+     top: 190px;
+     left: 20px;
+     height: 20px;
+     width: 160px;
+ }
+
+ .register a {
+     text-decoration-line: none;
+ }

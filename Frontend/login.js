@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const adminRedirect = "adminPanel.html"
-  const userRedirect = "index.html"
+  const userRedirect = "adminPanel.html"
 
   const form = document.getElementById("loginForm")
   const userNameInput = document.getElementById("userName")

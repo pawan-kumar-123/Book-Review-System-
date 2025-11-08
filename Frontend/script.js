@@ -85,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // Render books in grid
+// Render books in grid
 function renderBooks(limitBooks = true) {
     const booksGrid = document.getElementById("booksGrid");
     if (!booksGrid) return;
@@ -111,6 +112,9 @@ function renderBooks(limitBooks = true) {
         const imageUrl = book.image || "/images/default-book.jpg";
         const defaultImage = book.image ? "" : "background-color: #ddd;";
 
+        // Generate star rating HTML
+        const starRating = generateStarRating(book.averageRating || 0);
+
         bookCard.innerHTML = `
             <div class="book-image-container">
                 <img src="${imageUrl}" alt="${escapeHtml(book.title)}" class="book-image" 
@@ -119,6 +123,10 @@ function renderBooks(limitBooks = true) {
             <div class="book-info">
                 <h3 class="book-title">${escapeHtml(book.title || "Untitled")}</h3>
                 <p class="book-author">by ${escapeHtml(book.author || "Unknown")}</p>
+                <div class="book-rating">
+                    ${starRating}
+                    <span class="rating-text">${book.averageRating ? book.averageRating.toFixed(1) : "No rating"}</span>
+                </div>
             </div>
         `;
 
@@ -129,17 +137,35 @@ function renderBooks(limitBooks = true) {
 
         booksGrid.appendChild(bookCard);
     });
-
-    // Show "View All Books" button if there are more than 8 books
-    if (limitBooks && books.length > 8) {
-        const viewAllButton = document.createElement("div");
-        viewAllButton.className = "view-all-books";
-        viewAllButton.innerHTML = `
-            <a href="all_books.html" class="view-all-btn">View All Books (${books.length})</a>
-        `;
-        booksGrid.appendChild(viewAllButton);
-    }
 }
+
+// Function to generate star rating HTML
+function generateStarRating(rating) {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+    let starsHtml = '';
+
+    // Full stars
+    for (let i = 0; i < fullStars; i++) {
+        starsHtml += '<span class="star full">★</span>';
+    }
+
+    // Half star
+    if (hasHalfStar) {
+        starsHtml += '<span class="star half">★</span>';
+    }
+
+    // Empty stars
+    for (let i = 0; i < emptyStars; i++) {
+        starsHtml += '<span class="star empty">★</span>';
+    }
+
+    return starsHtml;
+}
+
+
 
 // Show book detail modal
 function showBookDetail(book) {
@@ -170,21 +196,40 @@ function showBookDetail(book) {
             </div>
             ${book.averageRating ? `
                 <div class="detail-rating">
-                    <span class="rating-label">Rating:</span>
+                    <span class="rating-label">Average Rating:</span>
                     <span class="rating-value">${book.averageRating.toFixed(1)} / 5.0</span>
+                    <div class="star-rating-display">
+                        ${generateStarRating(book.averageRating)}
+                    </div>
                 </div>
-            ` : ""}
+            ` : `
+                <div class="detail-rating">
+                    <span class="rating-label">Average Rating:</span>
+                    <span class="rating-value">No ratings yet</span>
+                </div>
+            `}
             
             <!-- Comments Section -->
             <div class="comments-section">
-                <h3 class="comments-title">Comments</h3>
+                <h3 class="comments-title">Comments & Ratings</h3>
                 ${currentUser ? `
                     <div class="add-comment-form">
+                        <div class="rating-input">
+                            <label>Your Rating:</label>
+                            <div class="star-rating-input" id="ratingStars">
+                                <span class="star-input" data-rating="1">★</span>
+                                <span class="star-input" data-rating="2">★</span>
+                                <span class="star-input" data-rating="3">★</span>
+                                <span class="star-input" data-rating="4">★</span>
+                                <span class="star-input" data-rating="5">★</span>
+                            </div>
+                            <span class="rating-value-display" id="ratingValue">0</span>
+                        </div>
                         <textarea id="commentInput" placeholder="Write your comment here..." rows="4"></textarea>
-                        <button id="submitCommentBtn" class="submit-comment-btn">Add Comment</button>
+                        <button id="submitCommentBtn" class="submit-comment-btn">Add Comment & Rating</button>
                     </div>
                 ` : `
-                    <p class="login-prompt">Please <a href="login.html">login</a> to add a comment.</p>
+                    <p class="login-prompt">Please <a href="login.html">login</a> to add a comment and rating.</p>
                 `}
                 <div id="commentsList" class="comments-list">
                     <!-- Comments will be loaded here -->
@@ -201,12 +246,55 @@ function showBookDetail(book) {
 
     // Setup comment event listeners
     if (currentUser) {
+        setupRatingInput();
         const submitBtn = document.getElementById("submitCommentBtn");
         if (submitBtn) {
             submitBtn.addEventListener("click", () => addComment(book._id));
         }
     }
 }
+
+
+// Setup star rating input
+function setupRatingInput() {
+    const stars = document.querySelectorAll('.star-input');
+    const ratingValue = document.getElementById('ratingValue');
+    let selectedRating = 0;
+
+    // Initialize global rating
+    window.selectedRating = selectedRating;
+
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            selectedRating = parseInt(star.dataset.rating);
+            ratingValue.textContent = selectedRating;
+            updateStarDisplay(stars, selectedRating);
+            // Update global rating
+            window.selectedRating = selectedRating;
+        });
+
+        star.addEventListener('mouseover', () => {
+            const hoverRating = parseInt(star.dataset.rating);
+            updateStarDisplay(stars, hoverRating);
+        });
+
+        star.addEventListener('mouseout', () => {
+            updateStarDisplay(stars, selectedRating);
+        });
+    });
+}
+
+function updateStarDisplay(stars, rating) {
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('selected');
+        } else {
+            star.classList.remove('selected');
+        }
+    });
+}
+
+
 
 // Load comments for a book
 async function loadComments(bookId) {
@@ -267,8 +355,15 @@ async function addComment(bookId) {
     if (!commentInput || !currentUser) return;
 
     const comment = commentInput.value.trim();
+    const rating = window.selectedRating || 0;
+
     if (!comment) {
         alert("Please enter a comment");
+        return;
+    }
+
+    if (rating === 0) {
+        alert("Please select a rating");
         return;
     }
 
@@ -280,6 +375,7 @@ async function addComment(bookId) {
             },
             body: JSON.stringify({
                 comment: comment,
+                rating: rating,
                 userId: currentUser._id
             })
         });
@@ -288,7 +384,15 @@ async function addComment(bookId) {
 
         if (response.ok) {
             commentInput.value = "";
+            window.selectedRating = 0;
+            document.getElementById('ratingValue').textContent = '0';
+            updateStarDisplay(document.querySelectorAll('.star-input'), 0);
             await loadComments(bookId);
+            // Reload books to update average rating
+            await loadBooks();
+            if (window.location.pathname.includes('all_books.html')) {
+                await loadBooks();
+            }
         } else {
             alert(result.message || "Failed to add comment");
         }
@@ -297,6 +401,7 @@ async function addComment(bookId) {
         alert("Error adding comment. Please try again.");
     }
 }
+
 
 // Edit comment
 async function editComment(commentId, currentComment) {

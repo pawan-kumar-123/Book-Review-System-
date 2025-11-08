@@ -33,4 +33,17 @@ const bookSchema = new mongoose.Schema({
         ref: "Admin"
     }
 }, { timestamps: true })
+
+
+bookSchema.methods.updateAverageRating = async function () {
+    const reviews = await mongoose.model('Review').find({ book: this._id });
+    if (reviews.length > 0) {
+        const totalRating = reviews.reduce((sum, review) => sum + (review.rating || 0), 0);
+        this.averageRating = totalRating / reviews.length;
+    } else {
+        this.averageRating = 0;
+    }
+    await this.save();
+};
+
 export const Book = mongoose.model('Book', bookSchema)
