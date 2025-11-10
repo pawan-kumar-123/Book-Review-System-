@@ -44,12 +44,14 @@ function updateNavbar() {
     const loginLink = document.getElementById("loginLink");
     const profileLink = document.getElementById("profileLink");
     const logoutLink = document.getElementById("logoutLink");
+    const cartLink = document.getElementById("cartLink");
 
     if (storedUser) {
-        // User is logged in - show profile and logout
+        // User is logged in - show profile, logout, and cart
         if (registerLink) registerLink.style.display = "none";
         if (loginLink) loginLink.style.display = "none";
         if (profileLink) profileLink.style.display = "block";
+        if (cartLink) cartLink.style.display = "block";
         if (logoutLink) {
             logoutLink.style.display = "block";
             logoutLink.addEventListener("click", (e) => {
@@ -62,10 +64,11 @@ function updateNavbar() {
             });
         }
     } else {
-        // User is not logged in - show register and login
+        // User is not logged in - show register and login, hide cart
         if (registerLink) registerLink.style.display = "block";
         if (loginLink) loginLink.style.display = "block";
         if (profileLink) profileLink.style.display = "none";
+        if (cartLink) cartLink.style.display = "none";
         if (logoutLink) logoutLink.style.display = "none";
     }
 }
