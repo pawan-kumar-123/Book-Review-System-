@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadBooks();
     setupEventListeners();
     updateNavbar();
+    setupSearch();
 });
 
 // Load all books from API
@@ -34,7 +35,7 @@ function updateNavbar() {
     const loginLink = document.getElementById("loginLink");
     const profileLink = document.getElementById("profileLink");
     const logoutLink = document.getElementById("logoutLink");
-
+    updateCartCount();
     if (storedUser) {
         // User is logged in - show profile and logout
         if (registerLink) registerLink.style.display = "none";
@@ -60,7 +61,6 @@ function updateNavbar() {
     }
 }
 
-// Render books in grid (show all books)
 // Render books in grid
 function renderBooks(limitBooks = true) {
     const booksGrid = document.getElementById("booksGrid");
@@ -103,6 +103,8 @@ function renderBooks(limitBooks = true) {
                     ${starRating}
                     <span class="rating-text">${book.averageRating ? book.averageRating.toFixed(1) : "No rating"}</span>
                 </div>
+                <p class="book-price">₹${book.price ? book.price.toFixed(2) : "0.00"}</p>
+                ${currentUser ? `<button class="add-to-cart-btn" data-book-id="${book._id}">Add to Cart</button>` : ""}
             </div>
         `;
 
@@ -112,6 +114,17 @@ function renderBooks(limitBooks = true) {
         });
 
         booksGrid.appendChild(bookCard);
+
+        // Add event listener for Add to Cart button
+        if (currentUser) {
+            const addToCartBtn = bookCard.querySelector('.add-to-cart-btn');
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent triggering book detail modal
+                    addToCart(book);
+                });
+            }
+        }
     });
 }
 
@@ -120,24 +133,24 @@ function generateStarRating(rating) {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-    
+
     let starsHtml = '';
-    
+
     // Full stars
     for (let i = 0; i < fullStars; i++) {
         starsHtml += '<span class="star full">★</span>';
     }
-    
+
     // Half star
     if (hasHalfStar) {
         starsHtml += '<span class="star half">★</span>';
     }
-    
+
     // Empty stars
     for (let i = 0; i < emptyStars; i++) {
         starsHtml += '<span class="star empty">★</span>';
     }
-    
+
     return starsHtml;
 }
 
@@ -157,7 +170,7 @@ function showBookDetail(book) {
 
     wrapper.innerHTML = `
         <div class="book-detail-image">
-            <img src="${imageUrl}" alt="${escapeHtml(book.title)}" 
+            <img src="${imageUrl}" alt="${escapeHtml(book.title)}"
                  onerror="this.src='/images/default-book.jpg'; this.style.backgroundColor='#ddd';">
         </div>
         <div class="book-detail-info">
@@ -168,6 +181,8 @@ function showBookDetail(book) {
                 <h3>Description</h3>
                 <p>${escapeHtml(book.description || "No description available.")}</p>
             </div>
+            ${book.price ? `<p class="detail-price">Price: ₹${book.price}</p>` : ""}
+            ${currentUser ? `<button id="addToCartBtn" class="add-to-cart-btn">Add to Cart</button>` : ""}
             ${book.averageRating ? `
                 <div class="detail-rating">
                     <span class="rating-label">Average Rating:</span>
@@ -182,7 +197,7 @@ function showBookDetail(book) {
                     <span class="rating-value">No ratings yet</span>
                 </div>
             `}
-            
+
             <!-- Comments Section -->
             <div class="comments-section">
                 <h3 class="comments-title">Comments & Ratings</h3>
@@ -225,6 +240,11 @@ function showBookDetail(book) {
         if (submitBtn) {
             submitBtn.addEventListener("click", () => addComment(book._id));
         }
+        // Add to cart button event listener
+        const addToCartBtn = document.getElementById("addToCartBtn");
+        if (addToCartBtn) {
+            addToCartBtn.addEventListener("click", () => addToCart(book));
+        }
     }
 }
 
@@ -266,8 +286,6 @@ function updateStarDisplay(stars, rating) {
         }
     });
 }
-
-
 
 // Load comments for a book
 async function loadComments(bookId) {
@@ -322,7 +340,6 @@ function renderComments(comments) {
     }).join("");
 }
 
-// Add comment
 // Add comment
 async function addComment(bookId) {
     const commentInput = document.getElementById("commentInput");
@@ -480,6 +497,97 @@ function escapeHtml(text) {
     const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
+}
+
+// Setup search functionality
+function setupSearch() {
+    const searchInput = document.getElementById("searchInput");
+    if (!searchInput) return;
+
+    searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        filterBooks(query);
+    });
+}
+
+// Filter books based on search query
+function filterBooks(query) {
+    if (!query) {
+        renderBooks(false); // Show all books if no query
+        return;
+    }
+
+    const filteredBooks = books.filter(book => {
+        const title = (book.title || "").toLowerCase();
+        const author = (book.author || "").toLowerCase();
+        return title.includes(query) || author.includes(query);
+    });
+
+    renderFilteredBooks(filteredBooks);
+}
+
+// Render filtered books
+function renderFilteredBooks(filteredBooks) {
+    const booksGrid = document.getElementById("booksGrid");
+    if (!booksGrid) return;
+
+    booksGrid.innerHTML = "";
+
+    if (filteredBooks.length === 0) {
+        booksGrid.innerHTML = `
+            <div class="no-books">
+                <p>No books found matching your search.</p>
+            </div>
+        `;
+        return;
+    }
+
+    filteredBooks.forEach((book) => {
+        const bookCard = document.createElement("div");
+        bookCard.className = "book-card";
+        bookCard.setAttribute("data-book-id", book._id);
+
+        const imageUrl = book.image || "/images/default-book.jpg";
+        const defaultImage = book.image ? "" : "background-color: #ddd;";
+
+        // Generate star rating HTML only if there's a rating
+        const starRating = book.averageRating ? generateStarRating(book.averageRating) : '';
+
+        bookCard.innerHTML = `
+            <div class="book-image-container">
+                <img src="${imageUrl}" alt="${escapeHtml(book.title)}" class="book-image"
+                     style="${defaultImage}" onerror="this.src='/images/default-book.jpg'; this.style.backgroundColor='#ddd';">
+            </div>
+            <div class="book-info">
+                <h3 class="book-title">${escapeHtml(book.title || "Untitled")}</h3>
+                <p class="book-author">by ${escapeHtml(book.author || "Unknown")}</p>
+                <div class="book-rating">
+                    ${starRating}
+                    <span class="rating-text">${book.averageRating ? book.averageRating.toFixed(1) : "No rating"}</span>
+                </div>
+                <p class="book-price">₹${book.price ? book.price.toFixed(2) : "0.00"}</p>
+                ${currentUser ? `<button class="add-to-cart-btn" data-book-id="${book._id}">Add to Cart</button>` : ""}
+            </div>
+        `;
+
+        // Add click event to show book detail
+        bookCard.addEventListener("click", () => {
+            showBookDetail(book);
+        });
+
+        booksGrid.appendChild(bookCard);
+
+        // Add event listener for Add to Cart button
+        if (currentUser) {
+            const addToCartBtn = bookCard.querySelector('.add-to-cart-btn');
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent triggering book detail modal
+                    addToCart(book);
+                });
+            }
+        }
+    });
 }
 
 // Show error message

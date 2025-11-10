@@ -1,0 +1,126 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #121212;
+  color: #fff;
+}
+
+/* Navbar */
+.navbar {
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.navbar .logo a {
+    color: white;
+    text-decoration: none;
+    font-size: 50px;
+}
+
+.navbar .menu {
+    height: 40px;
+    width: 500px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 5px;
+    gap: 9px;
+}
+
+.navbar .menu a {
+    font-size: 18px;
+    color: white;
+    text-decoration-line: none;
+    transition: color 0.3s;
+}
+
+.navbar .menu a:hover {
+    color: #4CAF50;
+}
+
+/* Cart container */
+.cart-container {
+  padding: 40px;
+  max-width: 1000px;
+  margin: auto;
+}
+.cart-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Cart items */
+.cart-items {
+  background: #1f1f1f;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  padding: 15px 0;
+}
+.cart-item img {
+  width: 80px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 20px;
+}
+.cart-item-details {
+  flex-grow: 1;
+}
+.cart-item-details h3 {
+  margin: 0;
+  color: #00bcd4;
+}
+.cart-item-details p {
+  margin: 5px 0;
+  color: #ccc;
+}
+.cart-item .remove-btn {
+  background-color: #ff4c4c;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+.cart-item .remove-btn:hover {
+  background-color: #ff2e2e;
+}
+
+/* Summary */
+.cart-summary {
+  text-align: right;
+  background-color: #1f1f1f;
+  padding: 20px;
+  border-radius: 10px;
+}
+.cart-summary h2 {
+  margin-bottom: 10px;
+}
+.cart-summary p {
+  margin: 5px 0;
+}
+.cart-summary button {
+  background-color: #00bcd4;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.cart-summary button:hover {
+  background-color: #0097a7;
+}

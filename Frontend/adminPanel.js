@@ -78,9 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Render books table
-    // In Frontend/adminPanel.js
-    // Update the renderBooksTable function to show images:
-
     function renderBooksTable() {
         if (!booksTable) return;
 
@@ -89,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (books.length === 0) {
             const row = document.createElement("tr");
             row.innerHTML = `
-            <td colspan="6" style="text-align: center; padding: 20px;">
+            <td colspan="7" style="text-align: center; padding: 20px;">
                 No books found. Add a book to get started.
             </td>
         `;
@@ -108,6 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${escapeHtml(book.author || "")}</td>
             <td>${escapeHtml(book.description || "").substring(0, 50)}${book.description?.length > 50 ? "..." : ""}</td>
             <td>${escapeHtml(book.genre || "N/A")}</td>
+            <td>₹${book.price ? book.price.toFixed(2) : "0.00"}</td>
             ${imageCell}
             <td>
                 <button class="edit-btn" data-book-id="${book._id}">Edit</button>
@@ -183,11 +181,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const newGenre = prompt("Enter new genre:", book.genre || "");
         if (newGenre === null) return;
 
+        const newPrice = prompt("Enter new price:", book.price || "");
+        if (newPrice === null) return;
+
         updateBook(book._id, {
             title: newTitle,
             author: newAuthor,
             description: newDescription,
             genre: newGenre,
+            price: newPrice,
         });
     }
 
@@ -234,6 +236,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const genre = prompt("Enter book genre (optional):") || "";
 
+        const price = prompt("Enter book price:");
+        if (price === null || price === "" || isNaN(price) || parseFloat(price) < 0) {
+            alert("Please enter a valid price.");
+            return;
+        }
+
         // Create file input for image
         const fileInput = document.createElement("input");
         fileInput.type = "file";
@@ -248,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Use a simple approach - create a form element
             const form = document.createElement("form");
             form.innerHTML = `
-            <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
                         background: white; padding: 20px; border: 2px solid #333; z-index: 10000; border-radius: 8px;">
                 <p style="margin-bottom: 10px;">Select book image:</p>
                 <input type="file" id="bookImageInput" accept="image/*" style="margin-bottom: 10px;">
@@ -283,6 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append("title", title.trim());
         formData.append("author", author.trim());
         formData.append("description", description.trim());
+        formData.append("price", parseFloat(price).toString());
         if (genre.trim()) {
             formData.append("genre", genre.trim());
         }

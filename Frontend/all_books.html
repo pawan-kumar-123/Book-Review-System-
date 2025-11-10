@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Books | Book Review</title>
     <link rel="stylesheet" href="all_books.css">
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar">
@@ -20,12 +22,17 @@
             <a id="loginLink" href="login.html">Login</a>
             <a id="profileLink" href="user_profile.html" style="display: none;">Profile</a>
             <a id="logoutLink" href="#" style="display: none;">Logout</a>
+            <a href="cart.html" id="cartLink">Cart (<span id="cartCount">0</span>)</a>
+
         </div>
     </nav>
 
     <!-- Books Container -->
     <div class="books-container">
         <h1 class="section-title">All Books</h1>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by title or author..." class="search-input">
+        </div>
         <div id="booksGrid" class="books-grid">
             <!-- Books will be loaded here -->
         </div>
@@ -38,6 +45,8 @@
         </div>
     </div>
 
+    <script src="cartUtils.js"></script>
     <script src="all_books.js"></script>
 </body>
+
 </html>

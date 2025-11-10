@@ -55,6 +55,32 @@
     margin-top: 70px;
 }
 
+.search-container {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    text-align: center;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 2px solid #444;
+    border-radius: 25px;
+    background-color: #2a2a2a;
+    color: white;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-input:focus {
+    border-color: #4CAF50;
+}
+
+.search-input::placeholder {
+    color: #aaa;
+}
+
 .section-title {
     color: white;
     text-align: center;

@@ -5,7 +5,7 @@ async function testAPI() {
     console.log(data.message)
 }
 testAPI();
-// above 
+ 
 
 let currentUser = null;
 let currentBookId = null;
@@ -79,6 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Check if user is logged in for comments
     const storedUser = localStorage.getItem("currentUser");
     currentUser = storedUser ? JSON.parse(storedUser) : null;
+    updateCartCount();
 });
 
 
@@ -117,7 +118,7 @@ function renderBooks(limitBooks = true) {
 
         bookCard.innerHTML = `
             <div class="book-image-container">
-                <img src="${imageUrl}" alt="${escapeHtml(book.title)}" class="book-image" 
+                <img src="${imageUrl}" alt="${escapeHtml(book.title)}" class="book-image"
                      style="${defaultImage}" onerror="this.src='/images/default-book.jpg'; this.style.backgroundColor='#ddd';">
             </div>
             <div class="book-info">
@@ -127,6 +128,7 @@ function renderBooks(limitBooks = true) {
                     ${starRating}
                     <span class="rating-text">${book.averageRating ? book.averageRating.toFixed(1) : "No rating"}</span>
                 </div>
+                <p class="book-price">₹${book.price ? book.price.toFixed(2) : "0.00"}</p>
             </div>
         `;
 
@@ -134,6 +136,17 @@ function renderBooks(limitBooks = true) {
         bookCard.addEventListener("click", () => {
             showBookDetail(book);
         });
+
+        // Add event listener for Add to Cart button
+        if (currentUser) {
+            const addToCartBtn = bookCard.querySelector('.add-to-cart-btn');
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent triggering book detail modal
+                    addToCart(book);
+                });
+            }
+        }
 
         booksGrid.appendChild(bookCard);
     });
@@ -208,7 +221,8 @@ function showBookDetail(book) {
                     <span class="rating-value">No ratings yet</span>
                 </div>
             `}
-            
+            ${currentUser ? `<button class="add-to-cart-btn" id="modalAddToCartBtn" data-book-id="${book._id}">Add to Cart</button>` : ""}
+
             <!-- Comments Section -->
             <div class="comments-section">
                 <h3 class="comments-title">Comments & Ratings</h3>
@@ -250,6 +264,12 @@ function showBookDetail(book) {
         const submitBtn = document.getElementById("submitCommentBtn");
         if (submitBtn) {
             submitBtn.addEventListener("click", () => addComment(book._id));
+        }
+
+        // Add event listener for modal Add to Cart button
+        const modalAddToCartBtn = document.getElementById("modalAddToCartBtn");
+        if (modalAddToCartBtn) {
+            modalAddToCartBtn.addEventListener("click", () => addToCart(book));
         }
     }
 }

@@ -67,11 +67,15 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 const createBook = asyncHandler(async (req, res) => {
     try {
-        const { title, author, description, genre } = req.body;
-        console.log("creating book:", { title, author, description, genre });
+        const { title, author, description, genre, price } = req.body;
+        console.log("creating book:", { title, author, description, genre, price });
 
-        if (!title || !description || !author) {
-            throw new ApiError(400, "Title, author and description are required")
+        if (!title || !description || !author || price === undefined) {
+            throw new ApiError(400, "Title, author, description, and price are required")
+        }
+
+        if (isNaN(price) || price < 0) {
+            throw new ApiError(400, "Price must be a valid non-negative number")
         }
 
         // Handle image upload
@@ -87,6 +91,7 @@ const createBook = asyncHandler(async (req, res) => {
             author: author.trim(),
             description: description.trim(),
             genre: genre ? genre.trim() : undefined,
+            price: parseFloat(price),
             image: imageUrl
         })
 
@@ -104,11 +109,24 @@ const createBook = asyncHandler(async (req, res) => {
 
 const editBook = asyncHandler(async (req, res) => {
     const { bookId } = req.params;
-    const { title, author, description, genre } = req.body
+    const { title, author, description, genre, price } = req.body
     console.log("editing book:", bookId);
+
+    const updateData = {};
+    if (title !== undefined) updateData.title = title.trim();
+    if (author !== undefined) updateData.author = author.trim();
+    if (description !== undefined) updateData.description = description.trim();
+    if (genre !== undefined) updateData.genre = genre.trim();
+    if (price !== undefined) {
+        if (isNaN(price) || price < 0) {
+            throw new ApiError(400, "Price must be a valid non-negative number")
+        }
+        updateData.price = parseFloat(price);
+    }
+
     const book = await Book.findByIdAndUpdate(
         bookId,
-        { title, author, description, genre },
+        updateData,
         { new: true }
     )
     if (!book) {

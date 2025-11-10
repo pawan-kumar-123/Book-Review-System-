@@ -31,7 +31,13 @@ const bookSchema = new mongoose.Schema({
     addBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Admin"
-    }
+    },
+    price: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+
 }, { timestamps: true })
 
 

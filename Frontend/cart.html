@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Cart | Book Review</title>
+  <link rel="stylesheet" href="cart.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html">Book Review</a>
+    </div>
+    <div class="menu">
+      <a href="index.html">Home</a>
+      <a href="all_books.html">All Books</a>
+      <a href="about.html">About</a>
+      <a href="register.html" id="registerLink">Register</a>
+      <a href="login.html" id="loginLink">Login</a>
+      <a href="user_profile.html" id="profileLink" style="display: none;">Profile</a>
+      <a href="#" id="logoutLink" style="display: none;">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Cart Section -->
+  <section class="cart-container" style="margin-top: 90px;">
+    <h1>🛒 My Cart</h1>
+    <div class="cart-items" id="cartItems"></div>
+
+    <div class="cart-summary">
+      <h2>Order Summary</h2>
+      <p id="totalItems">Total Items: 0</p>
+      <p id="totalPrice">Total Price: ₹0</p>
+      <button id="checkoutBtn">Proceed to Checkout</button>
+    </div>
+  </section>
+
+  <script src="cartUtils.js"></script>
+  <script src="cart.js"></script>
+</body>
+</html>
