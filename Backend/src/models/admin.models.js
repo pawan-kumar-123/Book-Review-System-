@@ -40,7 +40,7 @@ adminSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password)
 }
 
-// // 🔐 Generate Access Token (Short-lived - 7 days)
+// //  Generate Access Token (Short-lived - 7 days)
 // adminSchema.methods.generateAccessToken = function () {
 //     return jwt.sign(
 //         {
@@ -56,7 +56,7 @@ adminSchema.methods.isPasswordCorrect = async function (password) {
 //     )
 // }
 
-// // 🔄 Generate Refresh Token (Long-lived - 30 days)
+// //  Generate Refresh Token (Long-lived - 30 days)
 // adminSchema.methods.generateRefreshToken = function () {
 //     return jwt.sign(
 //         {

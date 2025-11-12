@@ -32,10 +32,10 @@ const createReview = asyncHandler(async (req, res) => {
         rating: rating || null
     });
 
-    // Update book's average rating after review creation
+  
     await book.updateAverageRating();
 
-    // Populate user info
+    
     const populatedReview = await Review.findById(review._id)
         .populate("reviewByUser", "userName email");
 
@@ -107,7 +107,7 @@ const deleteReview = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Review not found");
     }
 
-    // Check if user owns the review
+    
     if (review.reviewByUser.toString() !== userId) {
         throw new ApiError(403, "You can only delete your own reviews");
     }

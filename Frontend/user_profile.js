@@ -1,5 +1,3 @@
-// Create new file: Frontend/profile.js
-
 let currentUser = null;
 let userComments = [];
 

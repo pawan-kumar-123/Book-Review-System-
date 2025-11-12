@@ -88,8 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-// Render books in grid
-// Render books in grid
+
 function renderBooks(limitBooks = true) {
     const booksGrid = document.getElementById("booksGrid");
     if (!booksGrid) return;

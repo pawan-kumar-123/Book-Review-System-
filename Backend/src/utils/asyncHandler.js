@@ -7,8 +7,7 @@
 
 // export { asyncHandler } 
 
-// In Backend/src/utils/asyncHandler.js
-// Replace the entire file with:
+
 
 const asyncHandler = (fn) => async (req, res, next) => {
     try {

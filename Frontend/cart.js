@@ -1,5 +1,3 @@
-// Frontend/cart.js
-
 document.addEventListener("DOMContentLoaded", () => {
     updateNavbar();
     const cartItemsContainer = document.getElementById("cartItems");
